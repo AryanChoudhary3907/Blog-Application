@@ -32,23 +32,26 @@ The application follows a standard layered architecture to ensure separation of 
 
 ```mermaid
 graph TD
-    Client[Client / Frontend / Swagger]
+    Client["Client / Frontend / Swagger"]
     
     subgraph "Spring Boot Application"
-        Security[Spring Security Filter Chain\n(JWT Auth)]
-        Controller[Controllers\n(API Layer)]
-        Service[Service Layer\n(Business Logic)]
-        Repo[Repository Layer\n(Data Access)]
+        Security["Spring Security Filter Chain (JWT Auth)"]
+        Controller["Controllers (API Layer)"]
+        Service["Service Layer (Business Logic)"]
+        Repo["Repository Layer (Data Access)"]
     end
     
-    DB[(MySQL Database)]
+    DB[("MySQL Database")]
 
     Client -->|HTTP Request| Security
     Security -->|Authenticated| Controller
     Controller --> Service
     Service --> Repo
     Repo -->|SQL Query| DB
-📊 Database Design (ER Diagram)A simplified view of how Users, Posts, and Comments interact within the database.Code snippeterDiagram
+    
+📊 Database Design (ER Diagram)
+A simplified view of how Users, Posts, and Comments interact within the database.
+erDiagram
     USER ||--o{ POST : writes
     USER ||--o{ COMMENT : writes
     POST ||--o{ COMMENT : has
@@ -70,7 +73,9 @@ graph TD
         string text
         date created_at
     }
-📂 Project StructureThe project is organized into standard Spring Boot packages:Plaintextsrc/main/java/com/Aryan/Blog/Application
+📂 Project Structure
+The project is organized into standard Spring Boot packages:
+src/main/java/com/Aryan/Blog/Application
 ├── config          # Security (JWT, SecurityConfig) and Swagger config
 ├── controller      # REST Controllers (Endpoints)
 ├── DTOs            # Data Transfer Objects (Request/Response models)
@@ -80,12 +85,15 @@ graph TD
 ├── repository      # Data Access Layer (JPA Interfaces)
 ├── service         # Business Logic Layer
 └── utility         # Helper classes (JWT Utilities)
+
 🔌 API Endpoints🔐 
+
 Auth Controller 
 Method	Endpoint	Description
 POST	/auth/signup	Register a new user
 POST	/auth/login	Login and receive JWT Access/Refresh tokens
 POST	/auth/Refresh	Generate new Access Token using Refresh Token
+
 🌍 Public Controller (No Login Required)
 Method	Endpoint	Description
 GET	/public/post	Get all blog posts
@@ -93,6 +101,7 @@ GET	/public/search	Search posts by keyword
 GET	/public/user/{userId}	View user profile by ID
 GET	/public/post/{postId}	View specific post details
 GET	/public/comment/{postId}	View all comments on a post
+
 📝 Post & Comment Panel (Login Required) 
 Method	Endpoint	Description
 POST	/create	Create a new blog post
