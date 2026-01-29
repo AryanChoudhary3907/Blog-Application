@@ -49,6 +49,9 @@ graph TD
     Controller --> Service
     Service --> Repo
     Repo -->|SQL Query| DB
+    
+A simplified view of how Users, Posts, and Comments interact within the database.    
+
 erDiagram
     USER ||--o{ POST : writes
     USER ||--o{ COMMENT : writes
@@ -71,6 +74,9 @@ erDiagram
         string text
         date created_at
     }
+
+The project is organized into standard Spring Boot packages:
+
 src/main/java/com/Aryan/Blog/Application
 ├── config          # Security (JWT, SecurityConfig) and Swagger config
 ├── controller      # REST Controllers (Endpoints)
@@ -81,16 +87,24 @@ src/main/java/com/Aryan/Blog/Application
 ├── repository      # Data Access Layer (JPA Interfaces)
 ├── service         # Business Logic Layer
 └── utility         # Helper classes (JWT Utilities)
+
+API Endpoints
+
+Auth Controller (Public)
 Method,Endpoint,Description
 POST,/auth/signup,Register a new user
 POST,/auth/login,Login and receive JWT Access/Refresh tokens
 POST,/auth/Refresh,Generate new Access Token using Refresh Token
+
+Public Controller (No Login Required)
 Method,Endpoint,Description
 GET,/public/post,Get all blog posts
 GET,/public/search,Search posts by keyword
 GET,/public/user/{userId},View user profile by ID
 GET,/public/post/{postId},View specific post details
 GET,/public/comment/{postId},View all comments on a post
+
+Post & Comment Panel (Login Required)
 Method,Endpoint,Description
 POST,/create,Create a new blog post
 PUT,/update/{postId},Update an existing post
